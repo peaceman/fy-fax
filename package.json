@@ -20,6 +20,9 @@
     "@oclif/core": "^1",
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-plugins": "^2.0.1",
+    "csv-parse": "^5.0.4",
+    "google-libphonenumber": "^3.2.27",
+    "inquirer": "^8.2.4",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.0.8",
     "typeorm": "^0.3.6"
@@ -27,6 +30,8 @@
   "devDependencies": {
     "@oclif/test": "^2",
     "@types/chai": "^4",
+    "@types/google-libphonenumber": "^7.4.23",
+    "@types/inquirer": "^8.2.1",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.9.4",
     "chai": "^4",
@@ -45,8 +50,7 @@
     "bin": "fy-fax",
     "dirname": "fy-fax",
     "commands": "./dist/cli/commands",
-    "hooks": {
-    },
+    "hooks": {},
     "plugins": [
       "@oclif/plugin-help",
       "@oclif/plugin-plugins"
