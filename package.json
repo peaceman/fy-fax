@@ -23,6 +23,7 @@
     "csv-parse": "^5.0.4",
     "google-libphonenumber": "^3.2.27",
     "inquirer": "^8.2.4",
+    "iter-ops": "^1.6.2",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.0.8",
     "typeorm": "^0.3.6"

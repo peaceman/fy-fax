@@ -2883,6 +2883,11 @@ isexe@^2.0.0:
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=
 
+iter-ops@^1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/iter-ops/-/iter-ops-1.6.2.tgz#fb5fcb57e60d87fb35feb3d39acff96a3ba14a8b"
+  integrity sha512-NusiGbqB37TICevBmz5mHm+zagl5duWTxCGCVpcyk+nFBRogxmP6WWwxdycGDHXkVs6EhdUV7xvw9J7K/nyxmA==
+
 jake@^10.8.5:
   version "10.8.5"
   resolved "https://registry.yarnpkg.com/jake/-/jake-10.8.5.tgz#f2183d2c59382cb274226034543b9c03b8164c46"

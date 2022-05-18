@@ -1,12 +1,14 @@
 import { DataSource } from "typeorm"
 import * as path from "path"
-import { Recipient, Template } from "./entity";
+import { Fax, Recipient, Run, Template } from "./entity";
 
 let dataSource: DataSource | undefined;
 
 const entities = [
   Template,
   Recipient,
+  Run,
+  Fax,
 ];
 
 export async function initializeDataSource(dataDir: string): Promise<DataSource> {
