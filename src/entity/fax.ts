@@ -1,4 +1,4 @@
-import { Column, Entity, Generated, Index, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, Generated, Index, ManyToOne, OneToMany, PrimaryGeneratedColumn, RelationId } from "typeorm"
 import { Recipient } from "./recipient"
 import { Run } from "./run"
 
@@ -27,6 +27,9 @@ export class Fax {
     },
   )
   recipient!: Recipient
+
+  @RelationId((fax: Fax) => fax.recipient)
+  recipientId!: number
 
   @Column({
     nullable: true,
