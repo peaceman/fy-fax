@@ -3,7 +3,7 @@ import * as inquirer from "inquirer";
 import { Recipient, Template, Run, Fax } from "../../../entity";
 import * as crypto from "crypto";
 import { spawn } from "child_process";
-import { Readable } from "stream";
+import { pipeline, Readable } from "stream";
 import { Repository, SelectQueryBuilder } from "typeorm";
 import { map, pipe } from "iter-ops";
 
@@ -195,9 +195,14 @@ export class Create extends Command {
       stdio: ["pipe", "inherit", "inherit"],
     });
 
-    Readable.from(formatted).pipe(child.stdin);
+    pipeline(
+      Readable.from(formatted),
+      child.stdin,
+      err => {},
+    );
 
     await new Promise<void>((resolve) => child.on("close", () => resolve()));
+    console.clear();
   }
 
   async promptForRunName(): Promise<string> {
