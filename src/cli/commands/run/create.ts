@@ -6,6 +6,7 @@ import { spawn } from "child_process";
 import { pipeline, Readable } from "stream";
 import { Repository, SelectQueryBuilder } from "typeorm";
 import { map, pipe } from "iter-ops";
+import { pageQuery } from "../../shared/query";
 
 const MENU_ADD_FILTER = "addFilter";
 const MENU_REMOVE_FILTER = "removeFilter";
@@ -226,24 +227,6 @@ interface RecipientFilter {
 
 function recipientFilterStr(filter: RecipientFilter): string {
   return `${filter.column}: ${filter.value}`;
-}
-
-async function* pageQuery<T>(qb: SelectQueryBuilder<T>, pageSize: number = 100) {
-  let alreadyTaken = 0;
-
-  while (true) {
-    const results = await qb
-      .skip(alreadyTaken)
-      .take(pageSize)
-      .getMany();
-
-    yield* results;
-
-    alreadyTaken += results.length;
-
-    if (results.length === 0)
-      break;
-  }
 }
 
 function addRecipientFiltersToQueryBuilder(

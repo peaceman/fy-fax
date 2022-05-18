@@ -9,7 +9,8 @@
     "target": "es2019",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "lib": ["ES6"],
+    "lib": ["ES6", "DOM"],
+    "noImplicitAny": false,
   },
   "include": [
     "src/**/*"

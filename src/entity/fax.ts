@@ -7,6 +7,7 @@ export class Fax {
   @PrimaryGeneratedColumn()
   id!: number
 
+  @Column()
   @Generated("uuid")
   identifier!: string
 

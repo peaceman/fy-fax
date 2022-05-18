@@ -11,6 +11,8 @@ import * as crypto from "crypto";
 import { mkdir, writeFile } from "fs/promises";
 import { CliUx, Flags } from "@oclif/core";
 import * as nunjucks from "nunjucks";
+import { promptForRun } from "../../shared/prompts";
+import { chunkQuery } from "../../shared/query";
 
 export class Render extends Command {
   static flags = {
@@ -24,7 +26,11 @@ export class Render extends Command {
   async run() {
     const { flags } = await this.parse(Render);
 
-    const run = await this.promptForRun();
+    const run = await promptForRun(
+      this.dataSource.getRepository(Run),
+      "Which run should be rendered?",
+    );
+
     const template = await this.loadTemplate(run);
 
     const fastify = Fastify({
@@ -61,13 +67,18 @@ export class Render extends Command {
         faxesQb.andWhere("fax.pdfFilePath is null");
 
       const eligibleFaxes = await faxesQb.getCount();
-      this.log("found eligible faxes", { count: eligibleFaxes });
+      if (eligibleFaxes === 0) {
+        this.log("Found no faxes that need rendering");
+        return;
+      }
+
+      this.log("Found faxes to render", { count: eligibleFaxes });
 
       const pdfBaseDir = this.config.dataDir;
-      const renderQueue = new PQueue({ concurrency: 10 });
+      const renderQueue = new PQueue({ concurrency: 50 });
 
       CliUx.ux.action.start("Rendering pdfs");
-      for await (const faxes of chunkQuery(faxesQb, 100)) {
+      for await (const faxes of chunkQuery(faxesQb, 500)) {
         const renderFaxPromises = faxes
           .map(async fax => {
             const url = `${serverBaseUrl}/${fax.recipientId}`;
@@ -91,51 +102,17 @@ export class Render extends Command {
     }
   }
 
-  async promptForRun(): Promise<Run> {
-    const runs = await this.dataSource.getRepository(Run).find();
-    const answers = await inquirer
-      .prompt({
-        type: "list",
-        name: "run",
-        message: "Which run should be rendered?",
-        choices: runs.map(run => ({ name:
-          `${run.name} from ${run.createdAt.toISOString()}`,
-          value: run ,
-        })),
-      });
-
-    return answers.run;
-  }
-
   async loadTemplate(run: Run): Promise<Template> {
     const template = this.dataSource.createQueryBuilder()
       .relation(Run, "template")
       .of(run)
       .loadOne();
 
-      if (!template) {
-        this.error("Couldn't find template for run", { exit: 1 });
-      }
+    if (!template) {
+      this.error("Couldn't find template for run", { exit: 1 });
+    }
 
-      return template;
-  }
-}
-
-async function* chunkQuery<T>(qb: SelectQueryBuilder<T>, chunkSize: number = 10) {
-  let alreadyTaken = 0;
-
-  while (true) {
-    const results = await qb
-      .skip(alreadyTaken)
-      .take(chunkSize)
-      .getMany();
-
-    yield results;
-
-    alreadyTaken += results.length;
-
-    if (results.length === 0)
-      break;
+    return template;
   }
 }
 
@@ -143,7 +120,7 @@ function generatePdfFilePath(): string {
   const uuid = crypto.randomUUID();
 
   const folderPart = uuid.slice(0, 6);
-  const folderChunks = [];
+  const folderChunks: string[] = [];
   for (let idx = 0; idx < folderPart.length; idx += 2)
     folderChunks.push(folderPart.slice(idx, idx + 2));
 
