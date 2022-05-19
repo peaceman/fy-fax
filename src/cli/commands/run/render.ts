@@ -1,11 +1,9 @@
 import { Fax, Recipient, Run, Template } from "../../../entity";
 import Command from "../../base-command";
-import * as inquirer from "inquirer";
 import Fastify from "fastify";
 import * as puppeteer from "puppeteer";
 import { UrlPdfRenderer } from "../../../infra/url-pdf-renderer";
 import PQueue from "p-queue";
-import { SelectQueryBuilder } from "typeorm";
 import * as path from "path"
 import * as crypto from "crypto";
 import { mkdir, writeFile } from "fs/promises";

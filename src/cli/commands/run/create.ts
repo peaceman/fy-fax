@@ -4,7 +4,7 @@ import { Recipient, Template, Run, Fax } from "../../../entity";
 import * as crypto from "crypto";
 import { spawn } from "child_process";
 import { pipeline, Readable } from "stream";
-import { Repository, SelectQueryBuilder } from "typeorm";
+import { Brackets, Repository, SelectQueryBuilder } from "typeorm";
 import { map, pipe } from "iter-ops";
 import { pageQuery } from "../../shared/query";
 
@@ -233,12 +233,27 @@ function addRecipientFiltersToQueryBuilder(
   qb: SelectQueryBuilder<Recipient>,
   filters: RecipientFilter[]
 ): SelectQueryBuilder<Recipient> {
-  for (const [idx, filter] of Object.entries(filters)) {
-    qb.andWhere(
-      `JSON_EXTRACT(${qb.alias}.data, :col_${idx}) LIKE :val_${idx}`,
-      { [`col_${idx}`]: `$.${filter.column}`, [`val_${idx}`]: filter.value },
-    );
+  const filtersByColumn: { [k: string]: string[] } = filters
+    .reduce((prev, curr) => ({
+      ...prev,
+      [curr.column]: [
+        ...(prev[curr.column] || []),
+        curr.value,
+      ],
+    }), {});
+
+  for (const [column, values] of Object.entries(filtersByColumn)) {
+    qb.andWhere(new Brackets(wb => {
+      for (const [idx, value] of Object.entries(values)) {
+        wb.orWhere(
+          `JSON_EXTRACT(${qb.alias}.data, :col_${column}_${idx}) LIKE :val_${column}_${idx}`,
+          { [`col_${column}_${idx}`]: `$.${column}`, [`val_${column}_${idx}`]: value },
+      );
+      }
+    }));
   }
+
+  console.log("qb", { qb: qb.getQuery() });
 
   return qb;
 }
