@@ -10,7 +10,7 @@ import { mkdir, writeFile } from "fs/promises";
 import { CliUx, Flags } from "@oclif/core";
 import * as nunjucks from "nunjucks";
 import { promptForRun } from "../../shared/prompts";
-import { chunkQuery } from "../../shared/query";
+import { chunkQueryUntilEmpty } from "../../shared/query";
 
 export class Render extends Command {
   static description = `Render pdfs`
@@ -82,7 +82,10 @@ export class Render extends Command {
       const renderQueue = new PQueue({ concurrency: flags.concurrency });
 
       CliUx.ux.action.start("Rendering pdfs");
-      for await (const faxes of chunkQuery(faxesQb, flags.concurrency * 2)) {
+
+      let chunkNo = 1;
+      for await (const faxes of chunkQueryUntilEmpty(faxesQb, flags.concurrency * 2)) {
+        this.log("chunk pass", { chunkNo, faxes: faxes.length, ids: faxes.map(f => f.id) });
         const renderFaxPromises = faxes
           .map(async fax => {
             const url = `${serverBaseUrl}/${fax.recipientId}`;
@@ -98,8 +101,11 @@ export class Render extends Command {
           });
 
         await Promise.all(renderFaxPromises);
+        chunkNo += 1;
       }
       CliUx.ux.action.stop();
+    } catch (e) {
+      this.error(e as Error);
     } finally {
       await fastify.close();
       await browser.close();

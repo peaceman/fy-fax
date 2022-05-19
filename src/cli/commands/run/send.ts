@@ -2,7 +2,7 @@ import { Flags } from "@oclif/core";
 import { Fax, Run } from "../../../entity";
 import Command from "../../base-command";
 import { promptForRun } from "../../shared/prompts";
-import { chunkQuery } from "../../shared/query";
+import { chunkQueryUntilEmpty } from "../../shared/query";
 import * as clicksend from "../../../infra/clicksend";
 import { readFile } from "fs/promises";
 import * as path from "path";
@@ -18,6 +18,9 @@ export class Send extends Command {
     force: Flags.boolean({
       description: "Force sending of already sent faxes",
       default: false,
+    }),
+    limit: Flags.integer({
+      description: "Limit the amount of faxes sent",
     }),
   };
 
@@ -65,8 +68,9 @@ export class Send extends Command {
       await this.dataSource.getRepository(Fax).save(fax);
     };
 
-    for await (const faxes of chunkQuery(faxesQb, 100)) {
+    for await (const faxes of chunkQueryUntilEmpty(faxesQb, flags.limit ?? 100)) {
       await Promise.all(faxes.map(fax => sendFax(fax)));
+      if (flags.limit) return;
     }
   }
 
@@ -101,7 +105,8 @@ export class Send extends Command {
     faxMsg.source = "fy-fax";
     faxMsg.to = faxNumber;
     // TODO sender number?
-    faxMsg.from = TEST_NUMBER;
+    faxMsg.from = this.getSenderNr();
+//    faxMsg.from = TEST_NUMBER;
 
     const faxMsgCollection = new clicksend.FaxMessageCollection();
     faxMsgCollection.fileUrl = fileUrl;
@@ -135,6 +140,15 @@ export class Send extends Command {
     this.validateClickSendConfig(config);
 
     return new clicksend.UploadApi(config.username, config.password);
+  }
+
+  getSenderNr(): string {
+    const nr = this.userConfig.senderNr;
+    if (!nr || String(nr).length === 0) {
+      this.error("Missing senderNr in config", { exit: 1 });
+    }
+
+    return nr;
   }
 
   validateClickSendConfig(config: Record<string, string>): void {

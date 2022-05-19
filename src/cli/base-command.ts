@@ -8,6 +8,7 @@ import * as path from "path";
 
 interface UserConfig {
   clickSend: { username: string, password: string },
+  senderNr: string,
 }
 
 export default abstract class extends Command {
