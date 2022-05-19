@@ -7,7 +7,10 @@ import * as clicksend from "../../../infra/clicksend";
 import { readFile } from "fs/promises";
 import * as path from "path";
 
+const TEST_NUMBER = "+61261111111";
+
 export class Send extends Command {
+  static description = `Send pdfs as fax`;
   static flags = {
     "test-nr": Flags.string({
       description: "Recipient fax nr override",
@@ -43,7 +46,7 @@ export class Send extends Command {
       const logPrefix = `Fax: ${fax.identifier}`;
 
       const number = flags["test-nr"]
-//        || "+61261111111";
+//        || TEST_NUMBER
         || fax.recipient.faxNumber;
 
       const externalIdentifier = await this.sendFax(
@@ -97,7 +100,8 @@ export class Send extends Command {
     faxMsg.customString = internalIdentifier;
     faxMsg.source = "fy-fax";
     faxMsg.to = faxNumber;
-    faxMsg.from = "+61261111111";
+    // TODO sender number?
+    faxMsg.from = TEST_NUMBER;
 
     const faxMsgCollection = new clicksend.FaxMessageCollection();
     faxMsgCollection.fileUrl = fileUrl;

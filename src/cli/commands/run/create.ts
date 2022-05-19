@@ -15,9 +15,9 @@ const MENU_CHECK_RECIPIENTS = "checkRecipients";
 const MENU_CONTINUE = "continue";
 
 export class Create extends Command {
-  static description = `
-    creates a run
-  `;
+  static description = `Create a run
+
+    Select a template and filter available recipients to create a run`;
 
   async run() {
     // select template

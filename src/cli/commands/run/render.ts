@@ -15,11 +15,17 @@ import { promptForRun } from "../../shared/prompts";
 import { chunkQuery } from "../../shared/query";
 
 export class Render extends Command {
+  static description = `Render pdfs`
   static flags = {
     force: Flags.boolean({
       default: false,
       char: "f",
       description: "Force re-rendering of already existing pdfs"
+    }),
+    concurrency: Flags.integer({
+      default: 25,
+      char: "c",
+      description: "How many pdfs should be rendered in parallel?"
     }),
   };
 
@@ -75,10 +81,10 @@ export class Render extends Command {
       this.log("Found faxes to render", { count: eligibleFaxes });
 
       const pdfBaseDir = this.config.dataDir;
-      const renderQueue = new PQueue({ concurrency: 50 });
+      const renderQueue = new PQueue({ concurrency: flags.concurrency });
 
       CliUx.ux.action.start("Rendering pdfs");
-      for await (const faxes of chunkQuery(faxesQb, 500)) {
+      for await (const faxes of chunkQuery(faxesQb, flags.concurrency * 2)) {
         const renderFaxPromises = faxes
           .map(async fax => {
             const url = `${serverBaseUrl}/${fax.recipientId}`;

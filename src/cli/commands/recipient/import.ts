@@ -7,9 +7,9 @@ import { Recipient } from "../../../entity";
 import { PhoneNumberFormat, PhoneNumberUtil } from "google-libphonenumber";
 
 export class Import extends Command {
-  static description = `
-    imports recipients from a given csv file
-  `;
+  static description = `Imports recipients from a given csv file
+
+    Recipients with an already existing fax number will be updated`;
 
   static args = [
     {
