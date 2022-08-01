@@ -24,7 +24,7 @@
     "bluebird": "^3.7.2",
     "csv-parse": "^5.0.4",
     "fastify": "^3.29.0",
-    "google-libphonenumber": "^3.2.27",
+    "google-libphonenumber": "^3.2.30",
     "http": "^0.0.1-security",
     "inquirer": "^8.2.4",
     "iter-ops": "^1.6.2",
