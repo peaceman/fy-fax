@@ -44,7 +44,7 @@
     "@types/google-libphonenumber": "^7.4.23",
     "@types/inquirer": "^8.2.1",
     "@types/mocha": "^9.0.0",
-    "@types/node": "^16.11.56",
+    "@types/node": "^16.11.62",
     "@types/nunjucks": "^3.2.1",
     "chai": "^4",
     "eslint": "^7.32.0",
