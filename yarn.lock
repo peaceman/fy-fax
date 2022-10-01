@@ -3456,10 +3456,10 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-iter-ops@^1.6.2:
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/iter-ops/-/iter-ops-1.6.2.tgz#fb5fcb57e60d87fb35feb3d39acff96a3ba14a8b"
-  integrity sha512-NusiGbqB37TICevBmz5mHm+zagl5duWTxCGCVpcyk+nFBRogxmP6WWwxdycGDHXkVs6EhdUV7xvw9J7K/nyxmA==
+iter-ops@^1.6.4:
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/iter-ops/-/iter-ops-1.6.4.tgz#e9417600fc56dcd12e90dd823c7a1a673d7d54df"
+  integrity sha512-sv96rdLsoBipzsWq8o96con5VU9iYefSDfoei4NsUweks+v8ME/8izFu58WqyQC0fUhEn7o2SjtVVrYzIyZ4PA==
 
 jake@^10.8.5:
   version "10.8.5"

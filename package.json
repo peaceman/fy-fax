@@ -27,7 +27,7 @@
     "google-libphonenumber": "^3.2.30",
     "http": "^0.0.1-security",
     "inquirer": "^8.2.4",
-    "iter-ops": "^1.6.2",
+    "iter-ops": "^1.6.4",
     "js-yaml": "^4.1.0",
     "nunjucks": "^3.2.3",
     "p-queue": "^6.6.2",
