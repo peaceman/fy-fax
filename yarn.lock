@@ -2475,10 +2475,10 @@ fastest-levenshtein@^1.0.7:
   resolved "https://registry.yarnpkg.com/fastest-levenshtein/-/fastest-levenshtein-1.0.12.tgz#9990f7d3a88cc5a9ffd1f1745745251700d497e2"
   integrity sha512-On2N+BpYJ15xIC974QNVuYGMOlEVt4s0EOI3wwMqOmK1fdDY+FN/zltPV8vosq4ad4c/gJ1KHScUn/6AWIgiow==
 
-fastify@^3.29.2:
-  version "3.29.2"
-  resolved "https://registry.yarnpkg.com/fastify/-/fastify-3.29.2.tgz#57161e5c46e1c405fcdd545bfe88c8585bca3e36"
-  integrity sha512-XFuIF4T9IdkCVtV0amWQZg50w8iPn8MoAV4yK1DP88dU7YEwxDOOpVgKLWZS4YJA8RU001KUfg2b/2L6kEwJWA==
+fastify@^3.29.3:
+  version "3.29.3"
+  resolved "https://registry.yarnpkg.com/fastify/-/fastify-3.29.3.tgz#bed75e187f234dd292bbbf1d382f40545d0e9095"
+  integrity sha512-PA5mGkVnAnhysmyAnXMN9gdOlcfIxyGsfj9C7/a3sSfe5mC38euEGRLEB0T7ygbi7TIZ9yIZ/FLiERpwZeWriA==
   dependencies:
     "@fastify/ajv-compiler" "^1.0.0"
     "@fastify/error" "^2.0.0"
