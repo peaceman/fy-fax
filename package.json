@@ -22,7 +22,7 @@
     "@oclif/plugin-plugins": "^2.1.6",
     "@types/js-yaml": "^4.0.5",
     "bluebird": "^3.7.2",
-    "csv-parse": "^5.3.1",
+    "csv-parse": "^5.3.3",
     "fastify": "^3.29.2",
     "google-libphonenumber": "^3.2.31",
     "http": "^0.0.1-security",
