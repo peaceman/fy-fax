@@ -2897,10 +2897,10 @@ globby@^11, globby@^11.0.1, globby@^11.0.3, globby@^11.1.0:
     merge2 "^1.4.1"
     slash "^3.0.0"
 
-google-libphonenumber@^3.2.31:
-  version "3.2.31"
-  resolved "https://registry.yarnpkg.com/google-libphonenumber/-/google-libphonenumber-3.2.31.tgz#d2c4d4c8d7385be70b515086e4d28dd20da50600"
-  integrity sha512-l3bzAkfN4ITICKvuqEiY7JN06RxDAviOoKMtD2KfGYjGK3btPO8Xav7k0fgmf1Ud/pEm523yBh1/s/xDtKEvnw==
+google-libphonenumber@^3.2.32:
+  version "3.2.32"
+  resolved "https://registry.yarnpkg.com/google-libphonenumber/-/google-libphonenumber-3.2.32.tgz#63c48a9c247b64a3bc2eec21bdf3fcfbf2e148c0"
+  integrity sha512-mcNgakausov/B/eTgVeX8qc8IwWjRrupk9UzZZ/QDEvdh5fAjE7Aa211bkZpZj42zKkeS6MTT8avHUwjcLxuGQ==
 
 graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.5, graceful-fs@^4.1.6, graceful-fs@^4.2.0, graceful-fs@^4.2.6:
   version "4.2.10"
