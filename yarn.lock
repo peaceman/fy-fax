@@ -2412,6 +2412,11 @@ fancy-test@^2.0.0:
     nock "^13.0.0"
     stdout-stderr "^0.1.9"
 
+fast-content-type-parse@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/fast-content-type-parse/-/fast-content-type-parse-1.0.0.tgz#cddce00df7d7efb3727d375a598e4904bfcb751c"
+  integrity sha512-Xbc4XcysUXcsP5aHUU7Nq3OwvHq97C+WnbkeIefpeYLX+ryzFJlU6OStFJhs6Ol0LkUGpcK+wL0JwfM+FCU5IA==
+
 fast-decode-uri-component@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/fast-decode-uri-component/-/fast-decode-uri-component-1.0.1.tgz#46f8b6c22b30ff7a81357d4f59abfae938202543"
@@ -2475,15 +2480,16 @@ fastest-levenshtein@^1.0.7:
   resolved "https://registry.yarnpkg.com/fastest-levenshtein/-/fastest-levenshtein-1.0.12.tgz#9990f7d3a88cc5a9ffd1f1745745251700d497e2"
   integrity sha512-On2N+BpYJ15xIC974QNVuYGMOlEVt4s0EOI3wwMqOmK1fdDY+FN/zltPV8vosq4ad4c/gJ1KHScUn/6AWIgiow==
 
-fastify@^3.29.2:
-  version "3.29.2"
-  resolved "https://registry.yarnpkg.com/fastify/-/fastify-3.29.2.tgz#57161e5c46e1c405fcdd545bfe88c8585bca3e36"
-  integrity sha512-XFuIF4T9IdkCVtV0amWQZg50w8iPn8MoAV4yK1DP88dU7YEwxDOOpVgKLWZS4YJA8RU001KUfg2b/2L6kEwJWA==
+fastify@^3.29.5:
+  version "3.29.5"
+  resolved "https://registry.yarnpkg.com/fastify/-/fastify-3.29.5.tgz#a219af4223c6071eef46f3b98aee3f39f47a8c88"
+  integrity sha512-FBDgb1gkenZxxh4sTD6AdI6mFnZnsgckpjIXzIvfLSYCa4isfQeD8QWGPib63dxq6btnY0l1j8I0xYhMvUb+sw==
   dependencies:
     "@fastify/ajv-compiler" "^1.0.0"
     "@fastify/error" "^2.0.0"
     abstract-logging "^2.0.0"
     avvio "^7.1.2"
+    fast-content-type-parse "^1.0.0"
     fast-json-stringify "^2.5.2"
     find-my-way "^4.5.0"
     flatstr "^1.0.12"
